@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Mariot - Jashore | Best Cafe Vibes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --primary-dark: #e55a00;
+            --primary-light: #ff8c33;
+            --dark: #0a0a0a;
+            --dark-secondary: #141414;
+            --dark-tertiary: #1e1e1e;
+            --dark-card: #252525;
+            --text-light: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --white: #ffffff;
+            --gold: #ffd700;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .loader h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Sticky Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .nav-logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-light);
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                        url('assets/hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--text-light);
+            color: var(--text-light);
+        }
+
+        .btn-outline:hover {
+            background: var(--text-light);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-header h2 span {
+            color: var(--primary);
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Featured Items */
+        .featured {
+            background: var(--dark-secondary);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .featured-card {
+            background: var(--dark-card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .featured-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        .featured-info {
+            padding: 20px;
+        }
+
+        .featured-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .featured-info .price {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* Full Menu */
+        .menu {
+            background: var(--dark);
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .menu-category {
+            padding: 12px 25px;
+            border-radius: 30px;
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-tertiary);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .menu-category:hover,
+        .menu-category.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-item {
+            background: var(--dark-secondary);
+            border-radius: 15px;
+            padding: 20px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-item:hover {
+            background: var(--dark-tertiary);
+            transform: translateX(5px);
+        }
+
+        .menu-item img {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .menu-item-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .menu-item-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .menu-item-info .price {
+            color: var(--primary);
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        /* Why Choose Us */
+        .why-choose {
+            background: var(--dark-secondary);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .why-card {
+            background: var(--dark-card);
+            padding: 40px 25px;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .why-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.1);
+        }
+
+        .why-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+
+        .why-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .why-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.2);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 107, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        /* Reviews */
+        .reviews {
+            background: var(--dark-secondary);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .review-card {
+            background: var(--dark-card);
+            padding: 25px;
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .review-info h4 {
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .review-rating {
+            color: var(--gold);
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Contact & Location */
+        .contact {
+            background: var(--dark);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-map {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 400px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--dark-tertiary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item h4 {
+            margin-bottom: 5px;
+        }
+
+        .contact-item p {
+            color: var(--text-muted);
+        }
+
+        .hours-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .hours-item .day {
+            font-weight: 500;
+        }
+
+        .hours-item .time {
+            color: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-secondary);
+            padding: 50px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo img {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--dark-tertiary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--dark-tertiary);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .whatsapp-float:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                background: var(--dark-secondary);
+                flex-direction: column;
+                padding: 30px;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <img src="assets/logo.png" alt="Cafe Mariot" class="loader-logo">
+            <h2>Cafe Mariot</h2>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#" class="nav-logo">
+                    <img src="assets/logo.png" alt="Cafe Mariot">
+                    <span>Cafe Mariot</span>
+                </a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#featured">Featured</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#why">Why Us</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Experience the Best Café <span>Vibes in Jashore</span></h1>
+                <p>Eat Fresh, Pay Less!</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn btn-primary">View Menu</a>
+                    <a href="tel:01713698941" class="btn btn-outline">Call Now</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Cafe+Mariot+Jashore" target="_blank" class="btn btn-outline">Get Directions</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Items -->
+    <section class="featured" id="featured">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our <span>Featured Items</span></h2>
+                <p>Discover our most popular dishes loved by customers</p>
+            </div>
+            <div class="featured-grid">
+                <div class="featured-card">
+                    <span class="featured-badge">Best Seller</span>
+                    <img src="assets/food1.png" alt="Featured Item 1">
+                    <div class="featured-info">
+                        <h3>Grilled Chicken Special</h3>
+                        <p class="price">৳ 350</p>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <span class="featured-badge">Best Seller</span>
+                    <img src="assets/food2.png" alt="Featured Item 2">
+                    <div class="featured-info">
+                        <h3>Beef Burger Deluxe</h3>
+                        <p class="price">৳ 280</p>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="assets/food3.png" alt="Featured Item 3">
+                    <div class="featured-info">
+                        <h3>Margherita Pizza</h3>
+                        <p class="price">৳ 450</p>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <img src="assets/food4.png" alt="Featured Item 4">
+                    <div class="featured-info">
+                        <h3>Creamy Pasta</h3>
+                        <p class="price">৳ 320</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Menu -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our <span>Full Menu</span></h2>
+                <p>Explore our delicious variety of dishes</p>
+            </div>
+            <div class="menu-categories">
+                <button class="menu-category active" data-category="all">All</button>
+                <button class="menu-category" data-category="pizza">Pizza</button>
+                <button class="menu-category" data-category="burger">Burgers</button>
+                <button class="menu-category" data-category="pasta">Pasta</button>
+                <button class="menu-category" data-category="drinks">Drinks</button>
+                <button class="menu-category" data-category="main">Main Course</button>
+            </div>
+            <div class="menu-grid">
+                <div class="menu-item" data-category="pizza">
+                    <img src="assets/food3.png" alt="Pizza">
+                    <div class="menu-item-info">
+                        <h4>Margherita Pizza</h4>
+                        <p>Tomato, Mozzarella, Fresh Basil</p>
+                        <p class="price">৳ 450</p>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="pizza">
+                    <img src="assets/food5.webp" alt="Pizza">
+                    <div class="menu-item-info">
+                        <h4>Pepperoni Pizza</h4>
+                        <p>Pepperoni, Cheese, Herbs</p>
+                        <p class="price">৳ 550</p>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="burger">
+                    <img src="assets/food2.png" alt="Burger">
+                    <div class="menu-item-info">
+                        <h4>Beef Burger</h4>
+                        <p>Beef Patty, Lettuce, Tomato</p>
+                        <p class="price">৳ 280</p>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="burger">
+                    <img src="assets/food4.png" alt="Burger">
+                    <div class="menu-item-info">
+                        <h4>Chicken Burger</h4>
+                        <p>Grilled Chicken, Mayo, Pickles</p>
+                        <p class="price">৳ 250</p>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="pasta">
+                    <img src="assets/food6.webp" alt="Pasta">
+                    <div class="menu-item-info">
+                        <h4>White Sauce Pasta</h4>
+                        <p>Creamy White Sauce, Garlic</p>
+                        <p class="price">৳ 320</p>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="pasta">
+                    <img src="assets/food7.webp" alt="Pasta">
+                    <div class="menu-item-info">
+                        <h4>Red Sauce Pasta</h4>
+                        <p>Tomato Basil Sauce, Cheese</p>
+                        <p class="price">৳ 300</p>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="drinks">
+                    <img src="assets/food8.webp" alt="Drink">
+                    <div class="menu-item-info">
+                        <h4>Fresh Lemonade</h4>
+                        <p>Fresh Lemons, Mint</p>
+                        <p class="price">৳ 80</p>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="drinks">
+                    <img src="assets/food9.webp" alt="Drink">
+                    <div class="menu-item-info">
+                        <h4>Mango Shake</h4>
+                        <p>Fresh Mango, Milk</p>
+                        <p class="price">৳ 120</p>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="main">
+                    <img src="assets/food1.png" alt="Main Course">
+                    <div class="menu-item-info">
+                        <h4>Grilled Chicken</h4>
+                        <p>Spiced Chicken, vegetables</p>
+                        <p class="price">৳ 350</p>
+                    </div>
+                </div>
+                <div class="menu-item" data-category="main">
+                    <img src="assets/food10.webp" alt="Main Course">
+                    <div class="menu-item-info">
+                        <h4>Biryani Special</h4>
+                        <p>Rice, Spices, Meat</p>
+                        <p class="price">৳ 250</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-choose" id="why">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why <span>Choose Us</span></h2>
+                <p>What makes Cafe Mariot special</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">🏠</div>
+                    <h3>Cozy Environment</h3>
+                    <p>Relax in our comfortable and welcoming atmosphere</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🍕</div>
+                    <h3>Delicious Food</h3>
+                    <p> authentic flavors made with fresh ingredients</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">😊</div>
+                    <h3>Friendly Service</h3>
+                    <p>Our staff ensures you have a great experience</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">🎉</div>
+                    <h3>Perfect Hangout Spot</h3>
+                    <p>Ideal place to hang out with friends and family</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our <span>Gallery</span></h2>
+                <p>Glimpses of Cafe Mariot</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="assets/gallery1.jpg" alt="Gallery 1">
+                    <div class="gallery-overlay"><span>+</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/gallery2.jpg" alt="Gallery 2">
+                    <div class="gallery-overlay"><span>+</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/gallery3.jpg" alt="Gallery 3">
+                    <div class="gallery-overlay"><span>+</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/gallery4.jpg" alt="Gallery 4">
+                    <div class="gallery-overlay"><span>+</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/gallery5.jpg" alt="Gallery 5">
+                    <div class="gallery-overlay"><span>+</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/gallery6.jpg" alt="Gallery 6">
+                    <div class="gallery-overlay"><span>+</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/gallery7.jpg" alt="Gallery 7">
+                    <div class="gallery-overlay"><span>+</span></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/gallery8.jpg" alt="Gallery 8">
+                    <div class="gallery-overlay"><span>+</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2>Customer <span>Reviews</span></h2>
+                <p>What our customers say about us</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">A</div>
+                        <div class="review-info">
+                            <h4>Ashraful Islam</h4>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Amazing cafe! The best place in Jashore for hanging out with friends. Great food and cozy atmosphere.</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">R</div>
+                        <div class="review-info">
+                            <h4>Rasel Ahmed</h4>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Best burgers in town! The staff is very friendly and the prices are affordable. Highly recommended!</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">S</div>
+                        <div class="review-info">
+                            <h4>Sanjida Akter</h4>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Love the pasta here! Very delicious and fresh. Perfect spot for date nights.</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">M</div>
+                        <div class="review-info">
+                            <h4>Mahfuz Ahmed</h4>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Great environment and awesome pizza. My go-to place for weekend hangouts!</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">P</div>
+                        <div class="review-info">
+                            <h4>Priya Das</h4>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">The shake and pasta are amazing! Affordable prices with great quality. Love it!</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">J</div>
+                        <div class="review-info">
+                            <h4>Jahid Hasan</h4>
+                            <div class="review-rating">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Perfect hangout spot! The interior is beautiful and the food is always fresh.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Location -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact & <span>Location</span></h2>
+                <p>Find us easily</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58690.29348845179!2d89.2100726051518!3d23.16496786175244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ff105e62b5de2b%3A0xde0c2cc4cfa326a7!2sCafe%20Mariot!5e0!3m2!1sen!2sbd!4v1776194256656!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>Jashore, Bangladesh</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>01713698941</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕐</div>
+                        <div>
+                            <h4>Opening Hours</h4>
+                            <div class="hours-list">
+                                <div class="hours-item"><span class="day">Wednesday</span><span class="time">10AM-10:30PM</span></div>
+                                <div class="hours-item"><span class="day">Thursday</span><span class="time">10AM-10:30PM</span></div>
+                                <div class="hours-item"><span class="day">Friday</span><span class="time">3PM-10:30PM</span></div>
+                                <div class="hours-item"><span class="day">Saturday</span><span class="time">10AM-10:30PM</span></div>
+                                <div class="hours-item"><span class="day">Sunday</span><span class="time">10AM-10:30PM</span></div>
+                                <div class="hours-item"><span class="day">Monday</span><span class="time">10AM-10:30PM</span></div>
+                                <div class="hours-item"><span class="day">Tuesday</span><span class="time">10AM-10:30PM</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-logo">
+                    <img src="assets/logo.png" alt="Cafe Mariot">
+                    <h3>Cafe Mariot</h3>
+                    <p>The best cafe vibes in Jashore. Eat fresh, pay less!</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/cafemariot" target="_blank" class="social-link">f</a>
+                        <a href="https://wa.me/8801713698941" target="_blank" class="social-link">w</a>
+                        <a href="https://www.foodpanda.com.bd/restaurant/hbn1/cafe-mariot" target="_blank" class="social-link">p</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#featured">Featured</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Order Now</h4>
+                    <ul>
+                        <li><a href="https://www.foodpanda.com.bd/restaurant/hbn1/cafe-mariot" target="_blank">Foodpanda</a></li>
+                        <li><a href="tel:01713698941">Call to Order</a></li>
+                        <li><a href="https://wa.me/8801713698941" target="_blank">WhatsApp Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact Info</h4>
+                    <ul>
+                        <li>📍 Jashore, Bangladesh</li>
+                        <li>📞 01713698941</li>
+                        <li>✉️ info@cafemariot.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Cafe Mariot. All rights reserved. | Designed with ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/8801713698941" target="_blank" class="whatsapp-float">w</a>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Nav Toggle
+        document.getElementById('navToggle').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Menu Category Filter
+        const categories = document.querySelectorAll('.menu-category');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        categories.forEach(category => {
+            category.addEventListener('click', () => {
+                categories.forEach(c => c.classList.remove('active'));
+                category.classList.add('active');
+
+                const categoryValue = category.dataset.category;
+
+                menuItems.forEach(item => {
+                    if (categoryValue === 'all' || item.dataset.category === categoryValue) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Smooth Scroll for Nav Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.featured-card, .menu-item, .why-card, .gallery-item, .review-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
